@@ -9,18 +9,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Test
-  #       run: |
-  #         echo todo
+      - name: Test
+        run: |
+          echo todo
 
   root-package:
     runs-on: ubuntu-latest
-    # needs: [test]
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
 
@@ -29,7 +29,6 @@ jobs:
           npm install -g pnpm
           pnpm install
           node .github/scripts/build.mjs package
-          ls -l dist
 
       - uses: actions/upload-artifact@v3
         with:
@@ -37,156 +36,156 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  # linux-amd64:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  linux-amd64:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         rustup target add x86_64-unknown-linux-gnu
-  #         node .github/scripts/build.mjs linux-amd64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          rustup target add x86_64-unknown-linux-gnu
+          node .github/scripts/build.mjs linux-amd64
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/linux-amd64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
       
-  # linux-arm64:
-  #   runs-on: ubuntu-latest
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  linux-arm64:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         sudo apt-get install gcc-aarch64-linux-gnu
-  #         rustup target add aarch64-unknown-linux-gnu
-  #         node .github/scripts/build.mjs linux-arm64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          sudo apt-get install gcc-aarch64-linux-gnu
+          rustup target add aarch64-unknown-linux-gnu
+          node .github/scripts/build.mjs linux-arm64
       
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/linux-arm64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
 
-  # macos-amd64:
-  #   runs-on: macos-13
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  macos-amd64:
+    runs-on: macos-13
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         rustup target add x86_64-apple-darwin
-  #         node .github/scripts/build.mjs macos-amd64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          rustup target add x86_64-apple-darwin
+          node .github/scripts/build.mjs macos-amd64
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/macos-amd64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
       
-  # macos-arm64:
-  #   runs-on: macos-13
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  macos-arm64:
+    runs-on: macos-13
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         rustup target add aarch64-apple-darwin
-  #         node .github/scripts/build.mjs macos-arm64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          rustup target add aarch64-apple-darwin
+          node .github/scripts/build.mjs macos-arm64
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/macos-arm64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
 
-  # windows-amd64:
-  #   runs-on: windows-latest
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  windows-amd64:
+    runs-on: windows-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         rustup target add x86_64-pc-windows-msvc
-  #         node .github/scripts/build.mjs windows-amd64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          rustup target add x86_64-pc-windows-msvc
+          node .github/scripts/build.mjs windows-amd64
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/windows-amd64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
 
-  # windows-arm64:
-  #   runs-on: windows-latest
-  #   needs: [test]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  windows-arm64:
+    runs-on: windows-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Build
-  #       run: |
-  #         npm install -g pnpm
-  #         npm install
-  #         rustup target add aarch64-pc-windows-msvc
-  #         node .github/scripts/build.mjs windows-arm64
+      - name: Build
+        run: |
+          npm install -g pnpm
+          npm install
+          rustup target add aarch64-pc-windows-msvc
+          node .github/scripts/build.mjs windows-arm64
 
-  #     - uses: actions/upload-artifact@v3
-  #       with:
-  #         name: ${{ github.job }}
-  #         path: .github/dist/windows-arm64.tgz
-  #         retention-days: 1
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/
+          if-no-files-found: error
+          retention-days: 1
 
-  # publish-github-release:
-  #   runs-on: ubuntu-latest
-  #   needs: [root-package, linux-amd64, linux-arm64, macos-amd64, macos-arm64, windows-amd64, windows-arm64]
-  #   steps:
-  #     - uses: actions/checkout@v3
+  publish-github-release:
+    runs-on: ubuntu-latest
+    needs: [root-package, linux-amd64, linux-arm64, macos-amd64, macos-arm64, windows-amd64, windows-arm64]
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - uses: actions/download-artifact@v3
-  #       with:
-  #         path: target
+      - uses: actions/download-artifact@v3
+        with:
+          path: target
 
-  #     - name: Create Github Release
-  #       run: |
-  #         TAG="$(date -u +"%Y.%m.%d.%H%M").${GITHUB_SHA::7}"
+      - name: Create Github Release
+        run: |
+          TAG="$(date -u +"%Y.%m.%d.%H%M").${GITHUB_SHA::7}"
 
-  #         echo "Tag: ${TAG}"
+          echo "Tag: ${TAG}"
 
-  #         gh release create $TAG --draft --notes "Automatically built binaries"
+          gh release create $TAG --draft --notes "Automatically built binaries"
 
-  #         cd target
+          cd target
 
-  #         for DIR_NAME in * ; do
-  #             cd $DIR_NAME
-  #             chmod -R +x .
-  #             tar -czvf $DIR_NAME.tar.gz *
-  #             gh release upload $TAG $DIR_NAME.tar.gz
-  #             cd ..
-  #         done
+          for DIR_NAME in * ; do
+              cd $DIR_NAME
+              for PKG_NAME in * ; do
+                gh release upload $TAG $PKG_NAME
+              done
+              cd ..
+          done
 
-  #         gh release edit $TAG --draft=false
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh release edit $TAG --draft=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-npm-release:
     runs-on: ubuntu-latest
-    needs: [root-package] #, linux-amd64, linux-arm64, macos-amd64, macos-arm64, windows-amd64, windows-arm64]
+    needs: [root-package, linux-amd64, linux-arm64, macos-amd64, macos-arm64, windows-amd64, windows-arm64]
     steps:
       - uses: actions/checkout@v3
 
@@ -201,12 +200,11 @@ jobs:
           npm install -g pnpm
           pnpm install
           
-
           cd target
           for PKG_DIR in * ; do
               cd $PKG_DIR
               for PKG_NAME in * ; do
-                pnpm publish $PKG_NAME --dry-run
+                pnpm publish $PKG_NAME --dry-run --access public
               done
               cd ..
           done
