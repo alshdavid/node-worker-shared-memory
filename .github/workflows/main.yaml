@@ -9,14 +9,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Test
-        run: |
-          echo todo
+  #     - name: Test
+  #       run: |
+  #         echo todo
 
   root-package:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: |
           npm install -g pnpm
-          npm install
+          pnpm install
           node .github/scripts/build.mjs package
 
       - uses: actions/upload-artifact@v3
@@ -194,8 +194,11 @@ jobs:
 
       - name: Publish to NPM
         run: |
-          npm install -g pnpm
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
+          
+          npm install -g pnpm
+          pnpm install
+          
 
           cd target
           for PKG_NAME in * ; do
