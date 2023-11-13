@@ -204,8 +204,8 @@ jobs:
 
           cd target
           for PKG_NAME in * ; do
-              echo $PKG_NAME
-              pnpm publish $PKG_NAME --dry-run
+              ls -l $PKG_NAME
+              # pnpm publish $PKG_NAME --dry-run
           done
 
         env:
