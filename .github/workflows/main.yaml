@@ -156,7 +156,7 @@ jobs:
 
       - name: Create Github Release
         run: |
-          TAG="$(date -u +"v%Y.%m.%d.%H%M").${GITHUB_SHA::4}"
+          TAG="$(date -u +"%Y.%m.%d.%H%M").${GITHUB_SHA::7}"
 
           echo "Tag: ${TAG}"
 
@@ -175,3 +175,26 @@ jobs:
           gh release edit $TAG --draft=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-npm-release:
+    runs-on: ubuntu-latest
+    needs: [root-package, linux-amd64, linux-arm64, macos-amd64, macos-arm64, windows-amd64, windows-arm64]
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          path: target
+
+      - name: Create Github Release
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
+          cd .github/dist
+
+          for PKG_NAME in * ; do
+              echo $PKG_NAME
+              npm publish $PKG_NAME --dry-run
+          done
+
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
