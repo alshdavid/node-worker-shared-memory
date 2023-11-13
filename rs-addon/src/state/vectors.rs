@@ -4,11 +4,9 @@ use super::{matches_vector, DynamicType, State, StateType, ID};
 
 impl State {
     pub fn vector_new(&self) -> ID {
-        let value_arc = Arc::new(Mutex::new(Vec::<ID>::new()));
-        let id = self.new_id();
-        self.values
-            .insert(id, StateType::DynamicType(DynamicType::Vector(value_arc)));
-        return id;
+        let insert = Arc::new(Mutex::new(Vec::<ID>::new()));
+        let cast = StateType::DynamicType(DynamicType::Vector(insert));
+        return self.set_value_new(cast);
     }
 
     pub fn vector_push(&self, id: &ID, insert: &ID) -> bool {

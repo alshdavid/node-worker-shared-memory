@@ -6,11 +6,9 @@ use super::{DynamicType, State, StateType, ID, matches_map};
 
 impl State {
     pub fn map_new(&self) -> ID {
-        let value_arc = Arc::new(DashMap::<String, ID>::new());
-        let id = self.new_id();
-        self.values
-            .insert(id, StateType::DynamicType(DynamicType::Map(value_arc)));
-        return id;
+        let insert = Arc::new(DashMap::<String, ID>::new());
+        let cast = StateType::DynamicType(DynamicType::Map(insert));
+        return self.set_value_new(cast);
     }
 
     pub fn map_add(&self, id: &ID, key: String, insert: &ID) -> bool {

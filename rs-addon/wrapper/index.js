@@ -130,10 +130,69 @@ class MapRef {
   }
 }
 
+class StructFactory {
+  id
+
+  constructor(shape) {
+    this.id = native.js_struct_factory_new()
+    for (const [key, typeOf] of Object.entries(shape)) {
+      native.js_struct_factory_define_key(this.id, key, typeOf)
+    }
+  }
+
+  new(initialShape = {}) {
+    const id = native.js_struct_factory_instantiate(this.id)
+    for (const [key, value] of Object.entries(initialShape)) {
+      native.js_struct_set_key(id, key, value)
+    } 
+    return new StructRef(id)
+  }
+
+  new_proxy(initialShape = {}) {
+    return StructRefProxy(this.new(initialShape))
+  }
+}
+
+class StructRef {
+  id
+
+  constructor(id) {
+    this.id = id
+  }
+
+  getKey(key) {
+    let id = native.js_struct_get_key(this.id, key)
+    return getRefFromId(id).obtainValue()
+  }
+
+  setKey(key, value) {
+    return native.js_struct_set_key(this.id, key, value)
+  }
+
+  drop() {
+    return native.js_drop(this.id)
+  }
+}
+
+function StructRefProxy(target) {
+  return new Proxy(target, {
+    get(t, key) {
+      if ((key in target)) {
+        return target[key]
+      }
+      return t.getKey(key)
+    },
+    set(t, key, value) {
+      t.setKey(key, value)
+    }
+  })
+}
+
 module.exports = {
     StringRef,
     NumberRef,
     VectorRef,
     MapRef,
+    StructFactory,
     raw_api: native,
 }

@@ -29,7 +29,7 @@ export class VectorRef {
     drop(): void
 }
 
-export class MapRef<T extends StringRef | NumberRef | VectorRef | MapRef> {
+export class MapRef<T extends StringRef | NumberRef | VectorRef | MapRef<any>> {
     constructor(id?: ID)
     readonly id: ID
     add(key: string, item: T): void
@@ -39,22 +39,31 @@ export class MapRef<T extends StringRef | NumberRef | VectorRef | MapRef> {
     drop(): void
 }
 
-export type StructType = { [key: string]: 'string' | 'number' | 'vector' | 'map' | StructType }
+export type StructType = { [key: string]: 'string' | 'number' } // | 'vector' | 'map' } // | StructType }
 export type StructTypeKey<T extends StructType, K extends keyof StructType> = T[K]
 export type StructTypeRefMap = {
-    'string': StringRef,
-    'number': NumberRef,
-    'vector': VectorRef,
-    'map': MapRef,
+    'string': string,
+    'number': number,
+    // 'vector': VectorRef,
+    // 'map': MapRef,
+}
+
+export type StructInitialValues<T extends StructType> = {
+    [K in keyof T]: StructTypeRefMap[T[K]]
 }
 
 export class StructFactory<T extends StructType> {
     constructor(shape: T)
-    new(): StructRef<T>
+    new(initialValues?: StructInitialValues<T>): StructRef<T>
+    new_proxy(initialValues?: StructInitialValues<T>): StructProxy<T>
 }
 
 export class StructRef<T extends StructType> {
     getKey<P extends string, U extends StructTypeKey<T, P>>(key: P): StructTypeRefMap[U]
     setKey<U extends keyof T>(key: U, value: any): void
     drop(): void
+}
+
+export type StructProxy<T extends StructType> = StructRef<T> & {
+    [K in keyof T]: StructTypeRefMap[T[K]]
 }

@@ -1,4 +1,4 @@
-use std::sync::{Arc, Mutex};
+use std::{sync::{Arc, Mutex}, collections::HashMap};
 
 use dashmap::DashMap;
 
@@ -6,12 +6,14 @@ use dashmap::DashMap;
 pub enum PrimitiveType {
     String(Arc<String>),
     Number(Arc<f64>),
+    // Null,
 }
 
 #[derive(Clone)]
 pub enum DynamicType {
     Vector(Arc<Mutex<Vec<ID>>>),
     Map(Arc<DashMap<String, ID>>),
+    Struct(Arc<Mutex<HashMap<String, ID>>>),
 }
 
 #[derive(Clone)]
@@ -59,6 +61,18 @@ pub fn matches_vector(value: &StateType) -> Result<Arc<Mutex<Vec<ID>>>, ()> {
     };
 }
 
+pub fn matches_struct(value: &StateType) -> Result<Arc<Mutex<HashMap<String, ID>>>, ()> {
+    return match value {
+        StateType::DynamicType(d) => match d {
+            DynamicType::Struct(s) => {
+                return Ok(Arc::clone(&s));
+            }
+            _ => Err(()),
+        },
+        _ => Err(()),
+    };
+}
+
 pub fn matches_map(value: &StateType) -> Result<Arc<DashMap<String, ID>>, ()> {
     return match value {
         StateType::DynamicType(d) => match d {
@@ -71,11 +85,23 @@ pub fn matches_map(value: &StateType) -> Result<Arc<DashMap<String, ID>>, ()> {
     };
 }
 
-// pub fn matches_freed(value: &StateType) -> Result<bool, ()> {
+pub fn matches_freed(value: &StateType) -> Result<bool, ()> {
+    return match value {
+        StateType::Freed => {
+            return Ok(true);
+        }
+        _ => Err(()),
+    };
+}
+
+// pub fn matches_null(value: &StateType) -> Result<bool, ()> {
 //     return match value {
-//         StateType::Freed => {
-//             return Ok(true);
-//         }
+//         StateType::PrimitiveType(p) => match p {
+//             PrimitiveType::Null => {
+//                 return Ok(true);
+//             }
+//             _ => Err(()),
+//         },
 //         _ => Err(()),
 //     };
 // }

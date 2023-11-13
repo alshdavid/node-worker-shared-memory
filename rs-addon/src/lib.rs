@@ -35,5 +35,12 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("js_typeof", public::js_typeof(state.clone())).unwrap();
     cx.export_function("js_drop", public::js_drop(state.clone())).unwrap();
 
+
+    cx.export_function("js_struct_factory_new", public::js_struct_factory_new(state.clone())).unwrap();
+    cx.export_function("js_struct_factory_define_key", public::js_struct_factory_define_key(state.clone())).unwrap();
+    cx.export_function("js_struct_factory_instantiate", public::js_struct_factory_instantiate(state.clone())).unwrap();
+    cx.export_function("js_struct_get_key", public::js_struct_get_key(state.clone())).unwrap();
+    cx.export_function("js_struct_set_key", public::js_struct_set_key(state.clone())).unwrap();
+
     Ok(())
 }

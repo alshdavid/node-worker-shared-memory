@@ -4,13 +4,9 @@ use super::{matches_number, PrimitiveType, State, StateType, ID};
 
 impl State {
     pub fn number_new(&self) -> ID {
-        let value_arc = Arc::new(0.0);
-        let id = self.new_id();
-        self.values.insert(
-            id.clone(),
-            StateType::PrimitiveType(PrimitiveType::Number(value_arc)),
-        );
-        return id.clone();
+        let insert = Arc::new(0.0);
+        let cast = StateType::PrimitiveType(PrimitiveType::Number(insert));
+        return self.set_value_new(cast);
     }
 
     pub fn number_set(&self, id: &ID, value: f64) -> bool {
