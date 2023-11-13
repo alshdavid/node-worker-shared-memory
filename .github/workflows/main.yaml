@@ -26,6 +26,7 @@ jobs:
 
       - name: Build
         run: |
+          npm install -g pnpm
           npm install
           node .github/scripts/build.mjs package
 
@@ -187,12 +188,13 @@ jobs:
 
       - name: Publish to NPM
         run: |
+          npm install -g pnpm
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
 
           cd target
           for PKG_NAME in * ; do
               echo $PKG_NAME
-              npm publish $PKG_NAME --dry-run
+              pnpm publish $PKG_NAME --dry-run
           done
 
         env:
