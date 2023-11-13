@@ -29,6 +29,7 @@ jobs:
           npm install -g pnpm
           pnpm install
           node .github/scripts/build.mjs package
+          ls -l .github/dist/packed/
 
       - uses: actions/upload-artifact@v3
         with:
