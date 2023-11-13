@@ -130,7 +130,7 @@ class MapRef {
   }
 }
 
-class StructFactory {
+class StructDefinition {
   id
 
   constructor(shape) {
@@ -193,6 +193,7 @@ module.exports = {
     NumberRef,
     VectorRef,
     MapRef,
-    StructFactory,
+    StructDefinition,
+    StructRef,
     raw_api: native,
 }

@@ -75,7 +75,7 @@ foo.setKey('key_1', 'something else')
 You can access structs through a JavaScript proxy object for more ergonomic interactions. be mindful of accessing values as they are not references, the underlying value may change after it is obtained.
 
 ```javascript
-const Foo = new StructFactory({
+const Foo = new StructDefinition({
     key_1: "string",
     key_2: "number",
 })

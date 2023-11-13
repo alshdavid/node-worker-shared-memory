@@ -23,7 +23,7 @@ pub enum StateType {
     Freed,
 }
 
-pub type ID = u32;
+pub type ID = u64;
 
 pub fn matches_string(value: &StateType) -> Result<Arc<String>, ()> {
     return match value {
