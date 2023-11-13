@@ -31,7 +31,6 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.job }}
           path: .github/dist/package/*.tgz
           retention-days: 1
 
