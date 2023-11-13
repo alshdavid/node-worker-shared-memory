@@ -102,7 +102,7 @@ TARGET === 'linux-arm64' && (() => {
     cargoBuild(
         '--release',
         '--target aarch64-unknown-linux-gnu',
-        '--config target.aarch64-unknown-linux-gnu.linker=\"aarch64-linux-gnu-gcc\"',
+        '--config target.aarch64-unknown-linux-gnu.linker="aarch64-linux-gnu-gcc"',
     )
 
     fs.mkdirSync(path.join(Paths.Dist, TARGET), { recursive: true })

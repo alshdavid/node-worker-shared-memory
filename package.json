@@ -1,6 +1,6 @@
 {
   "name": "worker-shared-memory",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A native module that allows workers to share memory",
   "type": "commonjs",
   "main": "./wrapper/index.js",
