@@ -8,32 +8,10 @@ devDependencies:
   cargo-cp-artifact:
     specifier: ^0.1
     version: 0.1.8
-  semver:
-    specifier: ^7.5.4
-    version: 7.5.4
 
 packages:
 
   /cargo-cp-artifact@0.1.8:
     resolution: {integrity: sha512-3j4DaoTrsCD1MRkTF2Soacii0Nx7UHCce0EwUf4fHnggwiE4fbmF2AbnfzayR36DF8KGadfh7M/Yfy625kgPlA==, tarball: https://packages.atlassian.com/api/npm/npm-remote/cargo-cp-artifact/-/cargo-cp-artifact-0.1.8.tgz}
     hasBin: true
-    dev: true
-
-  /lru-cache@6.0.0:
-    resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==, tarball: https://packages.atlassian.com/api/npm/npm-remote/lru-cache/-/lru-cache-6.0.0.tgz}
-    engines: {node: '>=10'}
-    dependencies:
-      yallist: 4.0.0
-    dev: true
-
-  /semver@7.5.4:
-    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==, tarball: https://packages.atlassian.com/api/npm/npm-remote/semver/-/semver-7.5.4.tgz}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-    dev: true
-
-  /yallist@4.0.0:
-    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==, tarball: https://packages.atlassian.com/api/npm/npm-remote/yallist/-/yallist-4.0.0.tgz}
     dev: true
