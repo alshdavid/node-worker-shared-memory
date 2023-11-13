@@ -1,7 +1,7 @@
 {
-  "name": "@alshdavid/shared-worker-memory",
+  "name": "worker-shared-memory",
   "version": "1.0.0",
-  "description": "",
+  "description": "A native module that allows workers to share memory",
   "type": "commonjs",
   "main": "./wrapper/index.js",
   "types": "./wrapper/index.d.ts",
@@ -11,8 +11,8 @@
     "build-release": "npm run build -- --release",
     "test": "cargo test"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "David Alsh",
+  "license": "MIT",
   "devDependencies": {
     "cargo-cp-artifact": "^0.1"
   }

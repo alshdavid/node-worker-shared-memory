@@ -1,6 +1,6 @@
-import { ID } from './native'
+import { ID } from './bindings'
 
-export * as raw_api from './native'
+export * as raw_api from './bindings'
 
 export class StringRef {
     constructor(id?: ID)

@@ -1,4 +1,4 @@
-const native = require("./native");
+const native = require("./bindings");
 
 function getRefFromId(id) {
   let typeOf = native.js_typeof(id)

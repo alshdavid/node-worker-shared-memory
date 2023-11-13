@@ -20,5 +20,5 @@ export function js_maps_get(id: ID, key: string): ID
 export function js_maps_remove(id: ID, key: string): boolean
 export function js_maps_len(id: ID): number
 
-export function js_typeof(id: ID): 'undefined' | 'string' | 'number' | 'vector'
+export function js_typeof(id: ID): 'undefined' | 'string' | 'number' | 'vector' | 'map' | 'struct' | 'freed'
 export function js_drop(id: ID): boolean
