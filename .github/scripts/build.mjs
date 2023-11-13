@@ -5,6 +5,7 @@ import * as url from 'node:url';
 
 const TARGET = process.argv[2] || 'package'
 console.log(TARGET)
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const Paths = {
     Root: path.join(__dirname, '..', '..'),
@@ -13,6 +14,28 @@ const Paths = {
     IndexNode: path.join(__dirname, '..', '..', 'index.node'),
     Dist: path.join(__dirname, '..', 'dist'),
     DistPackage: path.join(__dirname, '..', 'dist', 'package'),
+}
+
+function cargoBuild(...args) {
+    if (fs.existsSync(Paths.IndexNode)) {
+        fs.rmSync(Paths.IndexNode, {recursive: true})
+    }
+    child_process.execSync(`npx cargo-cp-artifact -nc index.node -- cargo build --message-format=json-render-diagnostics ${args.join(' ')}`, {
+        stdio: 'inherit',
+        cwd: Paths.Root
+    })
+}
+
+function npmPack(output) {
+    child_process.execSync(`npm pack`, {
+        stdio: 'inherit',
+        cwd: path.join(Paths.Dist, output)
+    })
+    for (const filename of fs.readdirSync(path.join(Paths.Dist, output))) {
+        if (filename.endsWith('.tgz')) {
+            fs.cpSync(path.join(Paths.Dist, output, filename), path.join(Paths.Dist, `${output}.tgz`))
+        }
+    }
 }
 
 if (fs.existsSync(Paths.Dist)) {
@@ -43,17 +66,10 @@ TARGET === 'package' && (() => {
     }
 
     fs.writeFileSync(path.join(Paths.DistPackage, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack('package')
 })()
 
-function cargoBuild(...args) {
-    if (fs.existsSync(Paths.IndexNode)) {
-        fs.rmSync(Paths.IndexNode, {recursive: true})
-    }
-    child_process.execSync(`npx cargo-cp-artifact -nc index.node -- cargo build --message-format=json-render-diagnostics ${args.join(' ')}`, {
-        stdio: 'inherit',
-        cwd: Paths.Root
-    })
-}
+
 
 originalPackageJson.main = 'index.node'
 
@@ -78,6 +94,7 @@ TARGET === 'linux-amd64' && (() => {
     packageJson.libc = ["glibc"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
 
 TARGET === 'linux-arm64' && (() => {
