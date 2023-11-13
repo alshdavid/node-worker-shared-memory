@@ -29,15 +29,15 @@ function cargoBuild(...args) {
 }
 
 function npmPack(output) {
-    child_process.execSync(`pnpm pack`, {
+    child_process.execSync(`pnpm pack --pack-destination ${path.join(Paths.Dist, 'packed')}`, {
         stdio: 'inherit',
         cwd: path.join(Paths.Dist, output)
     })
-    for (const filename of fs.readdirSync(path.join(Paths.Dist, output))) {
-        if (filename.endsWith('.tgz')) {
-            fs.cpSync(path.join(Paths.Dist, output, filename), path.join(Paths.Dist, `${output}.tgz`))
-        }
-    }
+    // for (const filename of fs.readdirSync(path.join(Paths.Dist))) {
+    //     if (filename.endsWith('.tgz')) {
+    //         fs.cpSync(path.join(Paths.Dist, filename), path.join(Paths.Dist, `${output}.tgz`))
+    //     }
+    // }
 }
 
 if (fs.existsSync(Paths.Dist)) {

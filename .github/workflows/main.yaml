@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.job }}
-          path: .github/dist/package.tgz
+          path: .github/dist/packed/
           retention-days: 1
 
   # linux-amd64:
