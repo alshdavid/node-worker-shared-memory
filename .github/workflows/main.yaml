@@ -26,13 +26,14 @@ jobs:
 
       - name: Build
         run: |
+          npm install
           rustup target add x86_64-unknown-linux-gnu
-          node ./.github/scripts/build.mjs
+          node .github/scripts/build.mjs linux-amd64
 
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.job }}
-          path: target/x86_64-unknown-linux-gnu/release/cross-platform-release
+          path: .github/dist/linux-amd64
           retention-days: 1
       
   # linux-arm64:
