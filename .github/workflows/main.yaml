@@ -203,9 +203,12 @@ jobs:
           
 
           cd target
-          for PKG_NAME in * ; do
-              ls -l $PKG_NAME
-              # pnpm publish $PKG_NAME --dry-run
+          for PKG_DIR in * ; do
+              cd $PKG_DIR
+              for PKG_NAME in * ; do
+                pnpm publish $PKG_NAME --dry-run
+              done
+              cd ..
           done
 
         env:
