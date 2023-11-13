@@ -32,6 +32,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: ${{ github.job }}
           path: .github/dist/package.tgz
           retention-days: 1
 
@@ -195,7 +196,7 @@ jobs:
       - name: Publish to NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
-          
+
           npm install -g pnpm
           pnpm install
           
