@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "description": "",
   "type": "commonjs",
-  "main": "index.node",
+  "main": "./wrapper/index.js",
+  "types": "./wrapper/index.d.ts",
   "scripts": {
     "build": "cargo-cp-artifact -nc index.node -- cargo build --message-format=json-render-diagnostics",
     "build-debug": "npm run build --",
     "build-release": "npm run build -- --release",
-    "install": "npm run build-release",
     "test": "cargo test"
   },
   "author": "",

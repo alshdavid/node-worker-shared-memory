@@ -1,13 +1,29 @@
-const { StringRef, NumberRef, VectorRef, ...native } = require('./api/index.cjs')
+// @ts-check
+const { StringRef, NumberRef, VectorRef, StructFactory, raw_api } = require('../rs-addon')
 
-const vec = new VectorRef()
+const Thing = new StructFactory({
+  "key_1": "string",
+  "key_2": "number",
+  "key_3": "vector",
+  "key_4": "map",
+  "key_5": {
+    "key_1": "string"
+  }
+})
 
-vec.push(new NumberRef())
-vec.push(new NumberRef())
+const instance = Thing.new()
 
-vec.index(0).setValue(2)
-vec.index(1).setValue(2)
+let r1 = instance.getKey('key_1')
+let r2 = instance.getKey('key_2')
 
-for (let i = 0; i < vec.len(); i++) {
-  console.log(vec.index(i).obtainValue())
-}
+// const vec = new VectorRef()
+
+// vec.push(new NumberRef())
+// vec.push(new NumberRef())
+
+// vec.index(0).drop()
+// // vec.index(1).setValue(2)
+
+// for (let i = 0; i < vec.len(); i++) {
+//   console.log(vec.index(i))
+// }

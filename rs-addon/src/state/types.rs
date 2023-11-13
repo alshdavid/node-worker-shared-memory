@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 #[derive(Clone)]
 pub enum PrimitiveType {
@@ -8,7 +8,7 @@ pub enum PrimitiveType {
 
 #[derive(Clone)]
 pub enum DynamicType {
-    Vector(Arc<Vec<ID>>),
+    Vector(Arc<Mutex<Vec<ID>>>),
 }
 
 #[derive(Clone)]
@@ -17,7 +17,7 @@ pub enum StateType {
     DynamicType(DynamicType),
 }
 
-pub type ID = i128;
+pub type ID = u32;
 
 pub fn matches_string(value: &StateType) -> Result<Arc<String>, ()> {
     return match value {
@@ -43,13 +43,12 @@ pub fn matches_number(value: &StateType) -> Result<Arc<f64>, ()> {
   };
 }
 
-pub fn matches_vector(value: &StateType) -> Result<Arc<Vec<ID>>, ()> {
+pub fn matches_vector(value: &StateType) -> Result<Arc<Mutex<Vec<ID>>>, ()> {
   return match value {
       StateType::DynamicType(d) => match d {
           DynamicType::Vector(v) => {
               return Ok(Arc::clone(&v));
           }
-          _ => Err(()),
       },
       _ => Err(()),
   };

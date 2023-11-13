@@ -6,9 +6,8 @@ use super::{StateType, ID};
 pub type SyncState = Arc<Mutex<State>>;
 
 pub struct State {
-    pub counter: i128,
+    pub counter: ID,
     pub values: HashMap<ID, StateType>,
-    pub vectors: HashMap<ID, Vec<ID>>,
 }
 
 impl State {
@@ -16,7 +15,6 @@ impl State {
         return State{
             counter: 0,
             values: HashMap::new(),
-            vectors: HashMap::new(),
         };
     }
 

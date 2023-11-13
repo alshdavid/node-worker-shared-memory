@@ -23,5 +23,12 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("js_number_set", public::js_number_set(state.clone())).unwrap();
     cx.export_function("js_number_delete", public::js_number_delete(state.clone())).unwrap();
 
+    cx.export_function("js_vectors_new", public::js_vectors_new(state.clone())).unwrap();
+    cx.export_function("js_vectors_push", public::js_vectors_push(state.clone())).unwrap();
+    cx.export_function("js_vectors_index", public::js_vectors_index(state.clone())).unwrap();
+    cx.export_function("js_vectors_len", public::js_vectors_len(state.clone())).unwrap();
+
+    cx.export_function("js_typeof", public::js_typeof(state.clone())).unwrap();
+
     Ok(())
 }
