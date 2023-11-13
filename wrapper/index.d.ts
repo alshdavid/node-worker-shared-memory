@@ -52,7 +52,7 @@ export type StructInitialValues<T extends StructType> = {
     [K in keyof T]: StructTypeRefMap[T[K]]
 }
 
-export class StructFactory<T extends StructType> {
+export class StructDefinition<T extends StructType> {
     constructor(shape: T)
     new(initialValues?: StructInitialValues<T>): StructRef<T>
     new_proxy(initialValues?: StructInitialValues<T>): StructProxy<T>
