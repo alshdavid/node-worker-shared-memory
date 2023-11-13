@@ -29,6 +29,9 @@ function cargoBuild(...args) {
 }
 
 function npmPack(output) {
+    if (!fs.existsSync(path.join(Paths.Root, 'dist'))) {
+        fs.mkdirSync(path.join(Paths.Root, 'dist'), {recursive: true})
+    }
     child_process.execSync(`tar -czvf ${path.join(Paths.Root, 'dist', `${output}.tar.gz`)} .`, {
         stdio: 'inherit',
         cwd: path.join(Paths.Dist, output)
