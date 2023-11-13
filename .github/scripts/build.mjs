@@ -110,7 +110,7 @@ TARGET === 'linux-arm64' && (() => {
     
     packageJson.name = `@alshdavid/${packageJson.name}_${TARGET}`
     packageJson.os = ["linux"]
-    packageJson.cpu = ["x64"]
+    packageJson.cpu = ["arm"]
     packageJson.libc = ["glibc"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
