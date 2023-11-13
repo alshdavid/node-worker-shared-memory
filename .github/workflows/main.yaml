@@ -204,7 +204,7 @@ jobs:
           for PKG_DIR in * ; do
               cd $PKG_DIR
               for PKG_NAME in * ; do
-                pnpm publish $PKG_NAME --dry-run --access public
+                pnpm publish --access public --dry-run
               done
               cd ..
           done

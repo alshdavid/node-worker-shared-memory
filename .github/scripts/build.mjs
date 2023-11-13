@@ -33,11 +33,6 @@ function npmPack(output) {
         stdio: 'inherit',
         cwd: path.join(Paths.Dist, output)
     })
-    // for (const filename of fs.readdirSync(path.join(Paths.Dist))) {
-    //     if (filename.endsWith('.tgz')) {
-    //         fs.cpSync(path.join(Paths.Dist, filename), path.join(Paths.Dist, `${output}.tgz`))
-    //     }
-    // }
 }
 
 if (fs.existsSync(Paths.Dist)) {

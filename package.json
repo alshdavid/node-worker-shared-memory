@@ -14,7 +14,6 @@
   "author": "David Alsh",
   "license": "MIT",
   "devDependencies": {
-    "cargo-cp-artifact": "^0.1",
-    "semver": "^7.5.4"
+    "cargo-cp-artifact": "^0.1"
   }
 }
