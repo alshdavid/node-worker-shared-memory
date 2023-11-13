@@ -9,14 +9,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Test
-  #       run: |
-  #         echo todo
+      - name: Test
+        run: |
+          echo todo
 
   root-package:
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          path: .github/dist/package/*.tgz
+          path: .github/dist/package.tgz
           retention-days: 1
 
   # linux-amd64:
@@ -43,6 +43,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         rustup target add x86_64-unknown-linux-gnu
   #         node .github/scripts/build.mjs linux-amd64
@@ -61,6 +62,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         sudo apt-get install gcc-aarch64-linux-gnu
   #         rustup target add aarch64-unknown-linux-gnu
@@ -80,6 +82,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         rustup target add x86_64-apple-darwin
   #         node .github/scripts/build.mjs macos-amd64
@@ -98,6 +101,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         rustup target add aarch64-apple-darwin
   #         node .github/scripts/build.mjs macos-arm64
@@ -116,6 +120,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         rustup target add x86_64-pc-windows-msvc
   #         node .github/scripts/build.mjs windows-amd64
@@ -134,6 +139,7 @@ jobs:
 
   #     - name: Build
   #       run: |
+  #         npm install -g pnpm
   #         npm install
   #         rustup target add aarch64-pc-windows-msvc
   #         node .github/scripts/build.mjs windows-arm64
