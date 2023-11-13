@@ -204,7 +204,11 @@ jobs:
           for PKG_DIR in * ; do
               cd $PKG_DIR
               for PKG_NAME in * ; do
+                mkdir pkg
+                tar -xzvf ./package.tar.gz -C ./pkg
+                cd pkg
                 pnpm publish --access public
+                cd ..
               done
               cd ..
           done
