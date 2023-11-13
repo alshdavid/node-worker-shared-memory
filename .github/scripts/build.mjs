@@ -1,3 +1,5 @@
+// This script it terrible, it was just quick to write
+
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as child_process from 'node:child_process'
@@ -118,6 +120,7 @@ TARGET === 'linux-arm64' && (() => {
     packageJson.libc = ["glibc"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
 
 TARGET === 'macos-amd64' && (() => {
@@ -139,6 +142,7 @@ TARGET === 'macos-amd64' && (() => {
     packageJson.cpu = ["x64"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
 
 TARGET === 'macos-arm64' && (() => {
@@ -160,6 +164,7 @@ TARGET === 'macos-arm64' && (() => {
     packageJson.cpu = ["arm64"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
 
 TARGET === 'windows-amd64' && (() => {
@@ -181,6 +186,7 @@ TARGET === 'windows-amd64' && (() => {
     packageJson.cpu = ["x64"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
 
 TARGET === 'windows-arm64' && (() => {
@@ -202,12 +208,5 @@ TARGET === 'windows-arm64' && (() => {
     packageJson.cpu = ["arm64"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
+    npmPack(TARGET)
 })()
-
-
-
-    // fs.mkdirSync(path.join(Paths.Dist, 'linux_arm64'), { recursive: true })
-    // fs.mkdirSync(path.join(Paths.Dist, 'macos_amd64'), { recursive: true })
-    // fs.mkdirSync(path.join(Paths.Dist, 'macos_arm64'), { recursive: true })
-    // fs.mkdirSync(path.join(Paths.Dist, 'windows_amd64'), { recursive: true })
-    // fs.mkdirSync(path.join(Paths.Dist, 'windows_arm64'), { recursive: true })
