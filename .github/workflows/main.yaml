@@ -209,6 +209,7 @@ jobs:
                 cd pkg
                 pnpm publish --access public
                 cd ..
+                rm -rf pkg
               done
               cd ..
           done
