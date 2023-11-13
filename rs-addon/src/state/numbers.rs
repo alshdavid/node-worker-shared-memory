@@ -7,10 +7,10 @@ impl State {
         let value_arc = Arc::new(0.0);
         let id = self.new_id();
         self.values.insert(
-            id,
+            id.clone(),
             StateType::PrimitiveType(PrimitiveType::Number(value_arc)),
         );
-        return id;
+        return id.clone();
     }
 
     pub fn number_set(&self, id: &ID, value: f64) -> bool {
@@ -23,6 +23,10 @@ impl State {
         if result.is_err() {
             return false;
         }
+        // To release DashMap
+        drop(found_ref);
+        drop(result);
+
         self.values.insert(
             id.clone(),
             StateType::PrimitiveType(PrimitiveType::Number(Arc::new(value))),
@@ -37,10 +41,5 @@ impl State {
         }
         let found_ref = value_opt.unwrap();
         return matches_number(&found_ref);        
-    }
-
-    pub fn number_delete(&self, id: &ID) -> bool {
-        self.values.remove(id);
-        return true;
     }
 }

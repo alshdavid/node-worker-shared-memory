@@ -1,5 +1,7 @@
 use std::sync::{Arc, Mutex};
 
+use dashmap::DashMap;
+
 #[derive(Clone)]
 pub enum PrimitiveType {
     String(Arc<String>),
@@ -9,12 +11,14 @@ pub enum PrimitiveType {
 #[derive(Clone)]
 pub enum DynamicType {
     Vector(Arc<Mutex<Vec<ID>>>),
+    Map(Arc<DashMap<String, ID>>),
 }
 
 #[derive(Clone)]
 pub enum StateType {
     PrimitiveType(PrimitiveType),
     DynamicType(DynamicType),
+    Freed,
 }
 
 pub type ID = u32;
@@ -32,24 +36,46 @@ pub fn matches_string(value: &StateType) -> Result<Arc<String>, ()> {
 }
 
 pub fn matches_number(value: &StateType) -> Result<Arc<f64>, ()> {
-  return match value {
-      StateType::PrimitiveType(p) => match p {
-          PrimitiveType::Number(n) => {
-              return Ok(Arc::clone(&n));
-          }
-          _ => Err(()),
-      },
-      _ => Err(()),
-  };
+    return match value {
+        StateType::PrimitiveType(p) => match p {
+            PrimitiveType::Number(n) => {
+                return Ok(Arc::clone(&n));
+            }
+            _ => Err(()),
+        },
+        _ => Err(()),
+    };
 }
 
 pub fn matches_vector(value: &StateType) -> Result<Arc<Mutex<Vec<ID>>>, ()> {
-  return match value {
-      StateType::DynamicType(d) => match d {
-          DynamicType::Vector(v) => {
-              return Ok(Arc::clone(&v));
-          }
-      },
-      _ => Err(()),
-  };
+    return match value {
+        StateType::DynamicType(d) => match d {
+            DynamicType::Vector(v) => {
+                return Ok(Arc::clone(&v));
+            }
+            _ => Err(()),
+        },
+        _ => Err(()),
+    };
 }
+
+pub fn matches_map(value: &StateType) -> Result<Arc<DashMap<String, ID>>, ()> {
+    return match value {
+        StateType::DynamicType(d) => match d {
+            DynamicType::Map(m) => {
+                return Ok(Arc::clone(&m));
+            }
+            _ => Err(()),
+        },
+        _ => Err(()),
+    };
+}
+
+// pub fn matches_freed(value: &StateType) -> Result<bool, ()> {
+//     return match value {
+//         StateType::Freed => {
+//             return Ok(true);
+//         }
+//         _ => Err(()),
+//     };
+// }

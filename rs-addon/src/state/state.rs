@@ -10,14 +10,14 @@ pub type SyncState = Arc<State>;
 #[derive(Clone)]
 pub struct State {
     pub counter: Arc<Mutex<ID>>,
-    pub values: DashMap<ID, StateType>,
+    pub values: Arc<DashMap<ID, StateType>>,
 }
 
 impl State {
     pub fn new() -> Self {
         return State{
             counter: Arc::new(Mutex::new(0)),
-            values: DashMap::new(),
+            values: Arc::new(DashMap::new()),
         };
     }
 

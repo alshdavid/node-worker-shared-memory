@@ -31,12 +31,3 @@ pub fn js_string_set(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<J
     };
 }
 
-pub fn js_string_delete(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
-    return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
-        let arg0: Handle<JsNumber> = cx.argument(0)?;
-        let id = arg0.value(&mut cx).floor() as ID;
-
-        let ok = state.string_delete(&id);
-        return Ok(cx.boolean(ok));
-    };
-}

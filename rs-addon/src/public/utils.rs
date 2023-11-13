@@ -1,4 +1,4 @@
-use crate::state::{SyncState, ID, matches_number, matches_string, matches_vector};
+use crate::state::{SyncState, ID, matches_number, matches_string, matches_vector, StateType};
 use neon::prelude::*;
 
 pub fn js_typeof(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsString> {
@@ -23,5 +23,19 @@ pub fn js_typeof(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsStr
         }
 
         panic!("unknown type");
+    };
+}
+
+pub fn js_drop(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
+    return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
+        let arg0: Handle<JsNumber> = cx.argument(0)?;
+        let id = arg0.value(&mut cx).floor() as ID;
+
+        let result_opt = state.values.get(&id);
+        if result_opt.is_none() {
+            return Ok(cx.boolean(false));
+        }
+        state.values.insert(id, StateType::Freed);
+        return Ok(cx.boolean(true));
     };
 }

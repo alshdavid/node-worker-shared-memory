@@ -5,6 +5,7 @@ export * as raw_api from './native'
 export class StringRef {
     constructor(id?: ID)
     readonly id: ID
+    static from(i: string): StringRef
     drop(): void
     setValue(update: string): void
     obtainValue(): string
@@ -12,6 +13,7 @@ export class StringRef {
 
 export class NumberRef {
     constructor(id?: ID)
+    static from(i: number): NumberRef
     readonly id: ID
     drop(): void
     setValue(update: number): void
@@ -27,11 +29,12 @@ export class VectorRef {
     drop(): void
 }
 
-export class MapRef {
+export class MapRef<T extends StringRef | NumberRef | VectorRef | MapRef> {
     constructor(id?: ID)
     readonly id: ID
-    add(key: string, item: StringRef | NumberRef): void
-    get(key: string): StringRef | NumberRef
+    add(key: string, item: T): void
+    get(key: string): T
+    remove(key: string): void
     len(): number
     drop(): void
 }

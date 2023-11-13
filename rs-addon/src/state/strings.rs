@@ -23,6 +23,10 @@ impl State {
         if result.is_err() {
             return false
         }
+        // To release DashMap
+        drop(found_ref);
+        drop(result);
+
         self.values.insert(
             id.clone(),
             StateType::PrimitiveType(PrimitiveType::String(Arc::new(value))),
@@ -39,8 +43,4 @@ impl State {
         return matches_string(&found_ref);        
     }
 
-    pub fn string_delete(&self, id: &ID) -> bool {
-        self.values.remove(id);
-        return true;
-    }
 }

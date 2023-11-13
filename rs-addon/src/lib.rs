@@ -15,20 +15,25 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("js_string_new", public::js_string_new(state.clone())).unwrap();
     cx.export_function("js_string_get", public::js_string_get(state.clone())).unwrap();
     cx.export_function("js_string_set", public::js_string_set(state.clone())).unwrap();
-    cx.export_function("js_string_delete", public::js_string_delete(state.clone())).unwrap();
 
     // Handle numbers
     cx.export_function("js_number_new", public::js_number_new(state.clone())).unwrap();
     cx.export_function("js_number_get", public::js_number_get(state.clone())).unwrap();
     cx.export_function("js_number_set", public::js_number_set(state.clone())).unwrap();
-    cx.export_function("js_number_delete", public::js_number_delete(state.clone())).unwrap();
 
     cx.export_function("js_vectors_new", public::js_vectors_new(state.clone())).unwrap();
     cx.export_function("js_vectors_push", public::js_vectors_push(state.clone())).unwrap();
     cx.export_function("js_vectors_index", public::js_vectors_index(state.clone())).unwrap();
     cx.export_function("js_vectors_len", public::js_vectors_len(state.clone())).unwrap();
 
+    cx.export_function("js_maps_new", public::js_maps_new(state.clone())).unwrap();
+    cx.export_function("js_maps_add", public::js_maps_add(state.clone())).unwrap();
+    cx.export_function("js_maps_get", public::js_maps_get(state.clone())).unwrap();
+    cx.export_function("js_maps_remove", public::js_maps_remove(state.clone())).unwrap();
+    cx.export_function("js_maps_len", public::js_maps_len(state.clone())).unwrap();
+
     cx.export_function("js_typeof", public::js_typeof(state.clone())).unwrap();
+    cx.export_function("js_drop", public::js_drop(state.clone())).unwrap();
 
     Ok(())
 }

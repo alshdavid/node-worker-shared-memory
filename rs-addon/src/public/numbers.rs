@@ -30,13 +30,3 @@ pub fn js_number_set(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<J
         return Ok(cx.boolean(ok));
     };
 }
-
-pub fn js_number_delete(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
-    return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
-        let arg0: Handle<JsNumber> = cx.argument(0)?;
-        let id = arg0.value(&mut cx).floor() as ID;
-
-        let ok = state.number_delete(&id);
-        return Ok(cx.boolean(ok));
-    };
-}
