@@ -32,7 +32,7 @@ export class VectorRef {
 export class MapRef<T extends StringRef | NumberRef | VectorRef | MapRef<any>> {
     constructor(id?: ID)
     readonly id: ID
-    add(key: string, item: T): void
+    set(key: string, item: T): void
     get(key: string): T
     remove(key: string): void
     len(): number

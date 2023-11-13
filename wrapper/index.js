@@ -108,8 +108,8 @@ class MapRef {
     this.id = id
   }
 
-  add(key, item) {
-    return native.js_maps_add(this.id, key, item.id)
+  set(key, item) {
+    return native.js_maps_set(this.id, key, item.id)
   }
   
   get(key) {

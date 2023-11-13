@@ -11,7 +11,7 @@ impl State {
         return self.set_value_new(cast);
     }
 
-    pub fn map_add(&self, id: &ID, key: String, insert: &ID) -> bool {
+    pub fn map_set(&self, id: &ID, key: String, insert: &ID) -> bool {
         let found_opt = self.values.get_mut(id);
         if found_opt.is_none() {
             return false;

@@ -27,7 +27,7 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("js_vectors_len", public::js_vectors_len(state.clone())).unwrap();
 
     cx.export_function("js_maps_new", public::js_maps_new(state.clone())).unwrap();
-    cx.export_function("js_maps_add", public::js_maps_add(state.clone())).unwrap();
+    cx.export_function("js_maps_set", public::js_maps_set(state.clone())).unwrap();
     cx.export_function("js_maps_get", public::js_maps_get(state.clone())).unwrap();
     cx.export_function("js_maps_remove", public::js_maps_remove(state.clone())).unwrap();
     cx.export_function("js_maps_len", public::js_maps_len(state.clone())).unwrap();

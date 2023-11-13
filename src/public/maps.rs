@@ -8,7 +8,7 @@ pub fn js_maps_new(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsN
     };
 }
 
-pub fn js_maps_add(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
+pub fn js_maps_set(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
     return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let arg1: Handle<JsString> = cx.argument(1)?;
@@ -18,7 +18,7 @@ pub fn js_maps_add(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsB
         let key = arg1.value(&mut cx) as String;
         let insert = arg2.value(&mut cx).floor() as ID;
 
-        let result = state.map_add(&id, key, &insert);
+        let result = state.map_set(&id, key, &insert);
         return Ok(cx.boolean(result));
     };
 }

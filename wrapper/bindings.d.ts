@@ -15,7 +15,7 @@ export function js_vectors_index(id: ID, index: number): void
 export function js_vectors_len(): number
 
 export function js_maps_new(): ID
-export function js_maps_add(id: ID, key: string, ref: ID): void
+export function js_maps_set(id: ID, key: string, ref: ID): void
 export function js_maps_get(id: ID, key: string): ID
 export function js_maps_remove(id: ID, key: string): boolean
 export function js_maps_len(id: ID): number
