@@ -54,6 +54,7 @@ originalPackageJson.main = 'index.js'
 TARGET === 'package' && (() => {
     const packageJson = structuredClone(originalPackageJson)
     fs.cpSync(path.join(Paths.Root, 'wrapper'), path.join(Paths.DistPackage), {recursive : true})
+    fs.cpSync(path.join(Paths.Root, 'README.md'), path.join(Paths.DistPackage, 'README.md'), {recursive : true})
     
     packageJson.name = `@alshdavid/${packageJson.name}`
     packageJson.optionalDependencies = {
