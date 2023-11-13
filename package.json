@@ -1,6 +1,6 @@
 {
-  "name": "example-addon",
-  "version": "0.1.0",
+  "name": "@alshdavid/shared-worker-memory",
+  "version": "1.0.0",
   "description": "",
   "type": "commonjs",
   "main": "./wrapper/index.js",

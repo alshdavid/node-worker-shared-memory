@@ -4,15 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
-
-  b: {}
-
-  rs-addon:
-    devDependencies:
-      cargo-cp-artifact:
-        specifier: ^0.1
-        version: 0.1.8
+devDependencies:
+  cargo-cp-artifact:
+    specifier: ^0.1
+    version: 0.1.8
 
 packages:
 
