@@ -1,10 +1,11 @@
 PACKAGE_NAME="rxjs"
 PACKAGE_VERSION="$(node -p -e "require('./package.json').version")"
 
-FOUND_VERSION=$(npm info $PACKAGE_NAME versions)
+FOUND_VERSION=$(npm info $PACKAGE_NAME version)
 
-if $FOUND_VERSION
-then
+echo $FOUND_VERSION
+
+if [ "$FOUND_VERSION" = "" ]; then
     IS_NEW_VERSION=true
 else
     IS_NEW_VERSION=false
