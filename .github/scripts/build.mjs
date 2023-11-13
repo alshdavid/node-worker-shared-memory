@@ -68,16 +68,12 @@ TARGET === 'package' && (() => {
     }
 
     fs.writeFileSync(path.join(Paths.DistPackage, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
-    npmPack('package')
 })()
-
-
 
 originalPackageJson.main = 'index.node'
 
 // Linux amd64
 TARGET === 'linux-amd64' && (() => {
-    const TARGET = 'linux-amd64'
     cargoBuild(
         '--release',
         '--target x86_64-unknown-linux-gnu',
@@ -100,7 +96,6 @@ TARGET === 'linux-amd64' && (() => {
 })()
 
 TARGET === 'linux-arm64' && (() => {
-    const TARGET = 'linux-arm64'
     cargoBuild(
         '--release',
         '--target aarch64-unknown-linux-gnu',
@@ -124,7 +119,6 @@ TARGET === 'linux-arm64' && (() => {
 })()
 
 TARGET === 'macos-amd64' && (() => {
-    const TARGET = 'macos-amd64'
     cargoBuild(
         '--release',
         '--target x86_64-apple-darwin',
@@ -146,7 +140,6 @@ TARGET === 'macos-amd64' && (() => {
 })()
 
 TARGET === 'macos-arm64' && (() => {
-    const TARGET = 'macos-amd64'
     cargoBuild(
         '--release',
         '--target aarch64-apple-darwin',
@@ -168,7 +161,6 @@ TARGET === 'macos-arm64' && (() => {
 })()
 
 TARGET === 'windows-amd64' && (() => {
-    const TARGET = 'windows-amd64'
     cargoBuild(
         '--release',
         '--target x86_64-pc-windows-msvc',
@@ -190,7 +182,6 @@ TARGET === 'windows-amd64' && (() => {
 })()
 
 TARGET === 'windows-arm64' && (() => {
-    const TARGET = 'windows-amd64'
     cargoBuild(
         '--release',
         '--target aarch64-pc-windows-msvc',
@@ -208,5 +199,6 @@ TARGET === 'windows-arm64' && (() => {
     packageJson.cpu = ["arm64"]
     
     fs.writeFileSync(path.join(Paths.Dist, TARGET, 'package.json'), JSON.stringify(packageJson, null, 2), 'utf8')
-    npmPack(TARGET)
 })()
+
+npmPack(TARGET)
