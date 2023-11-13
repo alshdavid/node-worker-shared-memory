@@ -7,7 +7,7 @@ let done = 0
 let collisions = 0
 
 for (let i = 0; i < THREADS; i++) {
-  const worker = new Worker('./worker.cjs', { argv: [i, LOOP] });
+  const worker = new Worker(`${__dirname}/worker.cjs`, { argv: [i, LOOP] });
   worker.addListener('message', (id) => {
     if (id === null) {
       done += 1 

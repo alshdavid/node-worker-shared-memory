@@ -3,7 +3,7 @@ use std::{sync::{Arc, Mutex}, ops::Index};
 use super::{matches_vector, DynamicType, State, StateType, ID};
 
 impl State {
-    pub fn vector_new(&mut self) -> ID {
+    pub fn vector_new(&self) -> ID {
         let value_arc = Arc::new(Mutex::new(Vec::<ID>::new()));
         let id = self.new_id();
         self.values
@@ -11,13 +11,13 @@ impl State {
         return id;
     }
 
-    pub fn vector_push(&mut self, id: &ID, insert: &ID) -> bool {
+    pub fn vector_push(&self, id: &ID, insert: &ID) -> bool {
         let found_opt = self.values.get_mut(id);
         if found_opt.is_none() {
             return false;
         }
         let found_ref = found_opt.unwrap();
-        let result = matches_vector(found_ref);
+        let result = matches_vector(&found_ref);
         if result.is_err() {
             return false;
         }
@@ -27,13 +27,13 @@ impl State {
         return true;
     }
 
-    pub fn vector_index(&mut self, id: &ID, index: usize) -> Result<ID, ()> {
+    pub fn vector_index(&self, id: &ID, index: usize) -> Result<ID, ()> {
         let found_opt = self.values.get_mut(id);
         if found_opt.is_none() {
             return Err(());
         }
         let found_ref = found_opt.unwrap();
-        let result = matches_vector(found_ref);
+        let result = matches_vector(&found_ref);
         if result.is_err() {
             return Err(());
         }
@@ -46,13 +46,13 @@ impl State {
         return Ok(found.clone());
     }
 
-    pub fn vector_len(&mut self, id: &ID) -> Result<usize, ()> {
+    pub fn vector_len(&self, id: &ID) -> Result<usize, ()> {
         let found_opt = self.values.get_mut(id);
         if found_opt.is_none() {
             return Err(());
         }
         let found_ref = found_opt.unwrap();
-        let result = matches_vector(found_ref);
+        let result = matches_vector(&found_ref);
         if result.is_err() {
             return Err(());
         }

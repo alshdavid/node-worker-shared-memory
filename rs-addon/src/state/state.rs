@@ -1,30 +1,34 @@
-use std::{sync::{Arc, Mutex}, collections::HashMap};
+use std::sync::{Arc, Mutex};
+
+use dashmap::DashMap;
 
 use super::{StateType, ID};
 
 
-pub type SyncState = Arc<Mutex<State>>;
+pub type SyncState = Arc<State>;
 
+#[derive(Clone)]
 pub struct State {
-    pub counter: ID,
-    pub values: HashMap<ID, StateType>,
+    pub counter: Arc<Mutex<ID>>,
+    pub values: DashMap<ID, StateType>,
 }
 
 impl State {
     pub fn new() -> Self {
         return State{
-            counter: 0,
-            values: HashMap::new(),
+            counter: Arc::new(Mutex::new(0)),
+            values: DashMap::new(),
         };
     }
 
     pub fn new_sync() -> SyncState {
-        return Arc::new(Mutex::new(State::new()));
+        return Arc::new(State::new());
     }
 
-    pub fn new_id(&mut self) -> ID {
-        let id = self.counter;
-        self.counter += 1;
+    pub fn new_id(&self) -> ID {
+        let mut counter = self.counter.lock().unwrap();
+        let id = counter.clone();
+        (*counter) += 1;
         return  id;
     }
 }

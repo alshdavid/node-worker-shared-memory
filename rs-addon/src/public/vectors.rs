@@ -1,18 +1,15 @@
 use crate::state::{SyncState, ID};
 use neon::prelude::*;
 
-pub fn js_vectors_new(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
+pub fn js_vectors_new(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
     return move |mut cx: FunctionContext| -> JsResult<JsNumber> {
-        let mut state = sync_state.lock().unwrap();
         let id = state.vector_new();
         return Ok(cx.number(id as f64));
     };
 }
 
-pub fn js_vectors_push(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
+pub fn js_vectors_push(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
     return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let arg1: Handle<JsNumber> = cx.argument(1)?;
         
@@ -24,10 +21,8 @@ pub fn js_vectors_push(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsR
     };
 }
 
-pub fn js_vectors_index(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
+pub fn js_vectors_index(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
     return move |mut cx: FunctionContext| -> JsResult<JsNumber> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let arg1: Handle<JsNumber> = cx.argument(1)?;
         
@@ -42,10 +37,8 @@ pub fn js_vectors_index(sync_state: SyncState) -> impl Fn(FunctionContext) -> Js
     };
 }
 
-pub fn js_vectors_len(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
+pub fn js_vectors_len(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
     return move |mut cx: FunctionContext| -> JsResult<JsNumber> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         
         let id = arg0.value(&mut cx).floor() as ID;

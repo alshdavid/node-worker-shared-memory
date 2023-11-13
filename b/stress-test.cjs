@@ -159,17 +159,17 @@ const db = require('../rs-addon')
 // }
 
 
-// let c_a = 0
-// const refs_a = []
+let c_a = 0
+const refs_a = []
 
-// while (true) {
-//     if (c_a % 1_000_000 === 0) {
-//         console.log(1, c_a)
-//     }
-//     const ref = `${c_a}`
-//     refs_a.push(ref)
-//     c_a++
-// }
+while (true) {
+    if (c_a % 1_000_000 === 0) {
+        console.log(1, c_a)
+    }
+    const ref = db.raw_api.js_string_new();
+    refs_a.push(ref)
+    c_a++
+}
 
 // 59_000_000
 // 63_000_000

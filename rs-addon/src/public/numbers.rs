@@ -1,18 +1,15 @@
 use crate::state::{SyncState, ID};
 use neon::prelude::*;
 
-pub fn js_number_new(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
+pub fn js_number_new(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
     return move |mut cx: FunctionContext| -> JsResult<JsNumber> {
-        let mut state = sync_state.lock().unwrap();
         let id = state.number_new();
         return Ok(cx.number(id as f64));
     };
 }
 
-pub fn js_number_get(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
+pub fn js_number_get(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsNumber> {
     return move |mut cx: FunctionContext| -> JsResult<JsNumber> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let id = arg0.value(&mut cx).floor() as ID;
 
@@ -21,10 +18,8 @@ pub fn js_number_get(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsRes
     };
 }
 
-pub fn js_number_set(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
+pub fn js_number_set(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
     return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let arg1: Handle<JsNumber> = cx.argument(1)?;
 
@@ -36,10 +31,8 @@ pub fn js_number_set(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsRes
     };
 }
 
-pub fn js_number_delete(sync_state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
+pub fn js_number_delete(state: SyncState) -> impl Fn(FunctionContext) -> JsResult<JsBoolean> {
     return move |mut cx: FunctionContext| -> JsResult<JsBoolean> {
-        let mut state = sync_state.lock().unwrap();
-
         let arg0: Handle<JsNumber> = cx.argument(0)?;
         let id = arg0.value(&mut cx).floor() as ID;
 
