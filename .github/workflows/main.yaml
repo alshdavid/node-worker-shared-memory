@@ -9,25 +9,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - name: Test
-  #       run: |
-  #         cargo test
+      - name: Test
+        run: |
+          echo todo
 
   linux-amd64:
     runs-on: ubuntu-latest
-    # needs: [test]
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
 
       - name: Build
         run: |
           rustup target add x86_64-unknown-linux-gnu
-          node ./.scripts/build.mjs
+          node ./.github/scripts/build.mjs
 
       - uses: actions/upload-artifact@v3
         with:
