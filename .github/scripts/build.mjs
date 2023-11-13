@@ -29,7 +29,7 @@ function cargoBuild(...args) {
 }
 
 function npmPack(output) {
-    child_process.execSync(`pnpm pack --pack-destination ${path.join(Paths.Dist, 'packed')}`, {
+    child_process.execSync(`pnpm pack --pack-destination ${path.join(Paths.Root, 'dist')}`, {
         stdio: 'inherit',
         cwd: path.join(Paths.Dist, output)
     })

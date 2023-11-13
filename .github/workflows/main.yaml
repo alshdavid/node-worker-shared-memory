@@ -34,7 +34,8 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.job }}
-          path: .github/dist/packed/
+          path: dist/
+          if-no-files-found: error
           retention-days: 1
 
   # linux-amd64:
